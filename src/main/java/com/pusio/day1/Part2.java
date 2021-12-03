@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Hello world!
+ * https://adventofcode.com/2021/day/1
  */
 public class Part2 {
     public static void main(String[] args) throws IOException {

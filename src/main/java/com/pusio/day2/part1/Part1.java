@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Hello world!
+ * https://adventofcode.com/2021/day/2
  */
 public class Part1 {
     public static void main(String[] args) throws IOException {
