@@ -1,4 +1,4 @@
-package com.pusio.day5.day1;
+package com.pusio.day5.part1;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
@@ -16,11 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * https://adventofcode.com/2021/day/1
+ * https://adventofcode.com/2021/day/5
  */
-public class Part2 {
+public class Part1 {
     public static final int BOARD_SIZE = 10;
     public static void main(String[] args) throws IOException {
+        int counter = 0;
 
         File file = new File("src/main/resources/day5.input");
         List<String> contents = FileUtils.readLines(file, "UTF-8");
@@ -34,7 +35,10 @@ public class Part2 {
             String[] splitedSecondPoint = splitedLine[2].split(",");
             Point to = new Point(Integer.valueOf(splitedSecondPoint[0]), Integer.valueOf(splitedSecondPoint[1]));
 
-            pairs.add(Pair.of(from,to));
+            if(from.getX()==to.getX() || from.getY() == to.getY()){
+                pairs.add(Pair.of(from,to));
+            }
+
         }
 
 //        for (Pair<Point, Point> pair : pairs) {
@@ -65,7 +69,7 @@ public class Part2 {
                     }
                     board.put(pair.getLeft().getX(), i, paintValue+1);
                 }
-            }else if(pair.getLeft().getY() == pair.getRight().getY()){
+            }else {
                 int from = pair.getLeft().getX();
                 int to = pair.getRight().getX();
                 if(from > to){
@@ -81,46 +85,10 @@ public class Part2 {
                     board.put( i,pair.getLeft().getY(), paintValue+1);
                 }
             }
-            else{
-                Point rightPoint = pair.getRight();
-                Point pointer = pair.getLeft();
-
-                Integer startValue = board.get( pointer.getX(), pointer.getY());
-                if(startValue == null){
-                    startValue = 0;
-                }
-                board.put( pointer.getX(), pointer.getY(), startValue+1);
-
-                while(pointer.getX() != rightPoint.getX() && pointer.getY() != rightPoint.getY()){
-                    if(pointer.getX() > rightPoint.getX()){
-                        pointer.setX(pointer.getX()-1);
-                    }else {
-                        pointer.setX(pointer.getX()+1);
-                    }
-
-                    if(pointer.getY() > rightPoint.getY()){
-                        pointer.setY(pointer.getY()-1);
-                    }else {
-                        pointer.setY(pointer.getY()+1);
-                    }
-
-                    Integer paintValue = board.get( pointer.getX(), pointer.getY());
-                    if(paintValue == null){
-                        paintValue = 0;
-                    }
-                    board.put( pointer.getX(), pointer.getY(), paintValue+1);
-                }
-            }
         }
         for(int y=0; y<BOARD_SIZE; y++){
             for(int x=0; x<BOARD_SIZE; x++){
-                Integer integer = board.get(x, y);
-                if(integer == null) {
-                    System.out.print(".");
-                }else{
-                    System.out.print(integer);
-                }
-
+                System.out.print(board.get(x,y));
             }
             System.out.println("");
         }
@@ -133,4 +101,5 @@ public class Part2 {
         System.out.println("RESULT: " + count);
 
     }
+
 }

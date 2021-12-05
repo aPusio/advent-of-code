@@ -1,4 +1,4 @@
-package com.pusio.day4.day1;
+package com.pusio.day4.part2;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.ImmutableTable;
@@ -12,7 +12,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * https://adventofcode.com/2021/day/1
+ * https://adventofcode.com/2021/day/4
  */
 public class Part2 {
     public static void main(String[] args) throws IOException {

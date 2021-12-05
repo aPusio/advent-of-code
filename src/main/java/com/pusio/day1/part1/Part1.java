@@ -1,4 +1,4 @@
-package com.pusio.day1;
+package com.pusio.day1.part1;
 
 import org.apache.commons.io.FileUtils;
 
