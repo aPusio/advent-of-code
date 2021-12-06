@@ -34,7 +34,7 @@ public class Part2 {
             markWinningNumbers(boards, marked, winningNumber);
 
             winningTableNumber = findWinningTable(marked, alreadyWon);
-                alreadyWon.remove(winningTableNumber);
+            alreadyWon.remove(winningTableNumber);
         }
 
 

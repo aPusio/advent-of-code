@@ -26,7 +26,7 @@ public class Part1 {
     }
 
     private static void calculatePosition(Position position, Pair<Moves, Integer> pair) {
-        switch (pair.getLeft()){
+        switch (pair.getLeft()) {
             case FORWARD:
                 position.forward(pair.getRight());
                 break;

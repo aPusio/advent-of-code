@@ -1,4 +1,4 @@
-package com.pusio.day5.experiment;
+package com.pusio.utils.parsecsv;
 
 import com.univocity.parsers.common.processor.BeanListProcessor;
 import com.univocity.parsers.csv.CsvParser;

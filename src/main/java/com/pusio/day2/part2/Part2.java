@@ -21,11 +21,12 @@ public class Part2 {
                 .map(Part2::parseInput)
                 .forEach(pair -> calculatePosition(position, pair));
 
-        System.out.println("Position: " + position.calculateFinalPosition());;
+        System.out.println("Position: " + position.calculateFinalPosition());
+        ;
     }
 
     private static void calculatePosition(Position position, Pair<Moves, Integer> pair) {
-        switch (pair.getLeft()){
+        switch (pair.getLeft()) {
             case FORWARD:
                 position.forward(pair.getRight());
                 break;

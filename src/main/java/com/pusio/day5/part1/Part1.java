@@ -2,10 +2,6 @@ package com.pusio.day5.part1;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
@@ -20,6 +16,7 @@ import java.util.List;
  */
 public class Part1 {
     public static final int BOARD_SIZE = 10;
+
     public static void main(String[] args) throws IOException {
         int counter = 0;
 
@@ -35,8 +32,8 @@ public class Part1 {
             String[] splitedSecondPoint = splitedLine[2].split(",");
             Point to = new Point(Integer.valueOf(splitedSecondPoint[0]), Integer.valueOf(splitedSecondPoint[1]));
 
-            if(from.getX()==to.getX() || from.getY() == to.getY()){
-                pairs.add(Pair.of(from,to));
+            if (from.getX() == to.getX() || from.getY() == to.getY()) {
+                pairs.add(Pair.of(from, to));
             }
 
         }
@@ -54,45 +51,44 @@ public class Part1 {
 //        }
 
         for (Pair<Point, Point> pair : pairs) {
-            if(pair.getLeft().getX() == pair.getRight().getX()){
+            if (pair.getLeft().getX() == pair.getRight().getX()) {
                 int from = pair.getLeft().getY();
                 int to = pair.getRight().getY();
-                if(from > to){
+                if (from > to) {
                     int tmp = from;
                     from = to;
                     to = tmp;
                 }
-                for(int i = from; i<=to; i++){
+                for (int i = from; i <= to; i++) {
                     Integer paintValue = board.get(pair.getLeft().getX(), i);
-                    if(paintValue == null){
+                    if (paintValue == null) {
                         paintValue = 0;
                     }
-                    board.put(pair.getLeft().getX(), i, paintValue+1);
+                    board.put(pair.getLeft().getX(), i, paintValue + 1);
                 }
-            }else {
+            } else {
                 int from = pair.getLeft().getX();
                 int to = pair.getRight().getX();
-                if(from > to){
+                if (from > to) {
                     int tmp = from;
                     from = to;
                     to = tmp;
                 }
-                for(int i = from; i<=to; i++){
-                    Integer paintValue = board.get( i, pair.getLeft().getY());
-                    if(paintValue == null){
+                for (int i = from; i <= to; i++) {
+                    Integer paintValue = board.get(i, pair.getLeft().getY());
+                    if (paintValue == null) {
                         paintValue = 0;
                     }
-                    board.put( i,pair.getLeft().getY(), paintValue+1);
+                    board.put(i, pair.getLeft().getY(), paintValue + 1);
                 }
             }
         }
-        for(int y=0; y<BOARD_SIZE; y++){
-            for(int x=0; x<BOARD_SIZE; x++){
-                System.out.print(board.get(x,y));
+        for (int y = 0; y < BOARD_SIZE; y++) {
+            for (int x = 0; x < BOARD_SIZE; x++) {
+                System.out.print(board.get(x, y));
             }
             System.out.println("");
         }
-
 
         long count = board.values()
                 .stream()

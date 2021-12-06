@@ -22,10 +22,10 @@ public class Part1 {
         StringBuilder epsilonRateBuilder = new StringBuilder();
 
         for (String value : bits.values()) {
-            if(StringUtils.countMatches(value, "0") > StringUtils.countMatches(value, "1")){
+            if (StringUtils.countMatches(value, "0") > StringUtils.countMatches(value, "1")) {
                 gammaRateBuilder.append("0");
                 epsilonRateBuilder.append("1");
-            }else{
+            } else {
                 gammaRateBuilder.append("1");
                 epsilonRateBuilder.append("0");
             }

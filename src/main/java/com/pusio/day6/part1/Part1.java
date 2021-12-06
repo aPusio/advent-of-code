@@ -24,23 +24,23 @@ public class Part1 {
 
         List<Short> nextDayFishes = new ArrayList<>();
         List<Short> additionalFishes = new ArrayList<>();
-       for(int day = 1; day<= MAX_DAYS; day++) {
-           for (Short fish : fishes) {
-               Integer nextDayFish = fish - 1;
-               if (nextDayFish < 0) {
-                   nextDayFish = 6;
-                   additionalFishes.add((short) 8);
-               }
-               nextDayFishes.add(nextDayFish.shortValue());
-           }
-           fishes.clear();
-           fishes.addAll(nextDayFishes);
-           fishes.addAll(additionalFishes);
-           nextDayFishes.clear();
-           additionalFishes.clear();
-           System.out.println("DAY: " + day);
-           System.out.println("SIZE: " + fishes.size());
-       }
+        for (int day = 1; day <= MAX_DAYS; day++) {
+            for (Short fish : fishes) {
+                Integer nextDayFish = fish - 1;
+                if (nextDayFish < 0) {
+                    nextDayFish = 6;
+                    additionalFishes.add((short) 8);
+                }
+                nextDayFishes.add(nextDayFish.shortValue());
+            }
+            fishes.clear();
+            fishes.addAll(nextDayFishes);
+            fishes.addAll(additionalFishes);
+            nextDayFishes.clear();
+            additionalFishes.clear();
+            System.out.println("DAY: " + day);
+            System.out.println("SIZE: " + fishes.size());
+        }
     }
 
     private static List<Short> parseInput(List<String> contents) {

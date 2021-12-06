@@ -9,7 +9,7 @@ import lombok.ToString;
 @Setter
 @AllArgsConstructor
 @ToString
-class Point{
+class Point {
     private int x;
     private int y;
 }

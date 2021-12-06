@@ -17,25 +17,26 @@ public class Part2 {
         File file = new File("src/main/resources/day3.input");
         List<String> contents = FileUtils.readLines(file, "UTF-8");
         String oxygen = calculateLifeSupportRating(contents, Part2::getMostCommon);
-        String co2 = calculateLifeSupportRating(contents, Part2::getLessCommon);;
+        String co2 = calculateLifeSupportRating(contents, Part2::getLessCommon);
+        ;
         System.out.println("oxygen: " + oxygen);
         System.out.println("co2: " + co2);
         int oxygenValue = Integer.parseInt(oxygen, 2);
         int co2Value = Integer.parseInt(co2, 2);
-        System.out.println("result: " + oxygenValue * co2Value) ;
+        System.out.println("result: " + oxygenValue * co2Value);
     }
 
     private static String calculateLifeSupportRating(List<String> inputContents, BiFunction<Map<Integer, String>, Integer, String> bitCriteria) {
         List<String> contents = copyOf(inputContents);
         String result = "";
-        for(int index = 0; contents.size()>1; index++) {
+        for (int index = 0; contents.size() > 1; index++) {
             Map<Integer, String> bits = calculateBitsMap(contents);
             String bitCriteriaResult = bitCriteria.apply(bits, index);
             int finalIndex = index;
             List<String> collect = contents.stream()
                     .filter(a -> Character.toString(a.charAt(finalIndex)).equals(bitCriteriaResult))
                     .collect(Collectors.toList());
-            if(collect.size() == 1){
+            if (collect.size() == 1) {
                 result = collect.get(0);
             }
             contents = collect;

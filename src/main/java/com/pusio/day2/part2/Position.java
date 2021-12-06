@@ -5,16 +5,16 @@ public class Position {
     private int depth = 0;
     private int aim = 0;
 
-    public void forward(int value){
+    public void forward(int value) {
         horizontalPosition += value;
         depth += value * aim;
     }
 
-    public void up(int value){
+    public void up(int value) {
         aim -= value;
     }
 
-    public void down(int value){
+    public void down(int value) {
         aim += value;
     }
 
