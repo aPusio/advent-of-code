@@ -17,12 +17,10 @@ public class Main {
             // First input is the start
             System.out.print(scanner.nextInt() + ",");
             System.out.print(scanner.nextInt() + "->");
-//                System.out.print(scanner.next());
             System.out.print(scanner.nextInt() + ",");
             System.out.print(scanner.nextInt());
             System.out.println();
 
         }
-
     }
 }
