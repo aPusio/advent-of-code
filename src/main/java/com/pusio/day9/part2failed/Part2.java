@@ -1,13 +1,12 @@
-package com.pusio.day9.day7.part1;
+package com.pusio.day9.part2failed;
 
-import com.pusio.day9.day7.part2.ProblemSolver;
 
 import java.io.IOException;
 
 /**
- * https://adventofcode.com/2021/day/7
+ * https://adventofcode.com/2021/day/9
  */
-public class Part1 {
+public class Part2 {
 
     public static void main(String[] args) throws IOException {
         System.out.println("SAMPLE RESULT: " + new ProblemSolver().solve("src/main/resources/day9_sample.input"));
