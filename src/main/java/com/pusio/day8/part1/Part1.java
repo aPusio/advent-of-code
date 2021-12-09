@@ -3,7 +3,7 @@ package com.pusio.day8.part1;
 import java.io.IOException;
 
 /**
- * https://adventofcode.com/2021/day/7
+ * https://adventofcode.com/2021/day/8
  */
 public class Part1 {
 
