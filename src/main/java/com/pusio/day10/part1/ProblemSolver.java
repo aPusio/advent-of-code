@@ -1,23 +1,81 @@
 package com.pusio.day10.part1;
 
+import com.google.common.base.Splitter;
+import com.google.common.collect.ImmutableMap;
 import com.pusio.utils.Utils;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ProblemSolver {
-    public Long solve(String filePath) throws IOException {
-        List<Integer> crabs = Utils.readUsingDelimiters(filePath, ",")
-                .stream()
-                .map(Integer::valueOf)
-                .collect(Collectors.toList());
-        Integer middleValue = crabs.get(crabs.size() / 2);
+    private Map<String, String> syntaxMap = ImmutableMap.of(
+            "(", ")",
+            "{", "}",
+            "[", "]",
+            "<", ">");
 
-        Long fuel = 0L;
-        for (Integer crab : crabs) {
-            fuel += Math.abs(crab - middleValue);
+    public Long solve(String filePath) throws IOException {
+        List<List<String>> splitLines = parseInput(filePath);
+        List<String> result = new ArrayList<>();
+
+        for (List<String> splitLine : splitLines) {
+            String firstIncorrect = "";
+            Stack<String> stack = new Stack<>();
+            for (String singleChar : splitLine) {
+                if (syntaxMap.containsKey(singleChar)) {
+                    stack.add(singleChar);
+                } else {
+                    String pop = stack.pop();
+                    boolean correct = isCorrect(pop, singleChar);
+                    if (correct == false && firstIncorrect.equals("")) {
+                        firstIncorrect = singleChar;
+                    }
+                }
+            }
+            if (!stack.isEmpty()) {
+                result.add(firstIncorrect);
+            }
         }
-        return fuel;
+
+        return result.stream()
+                .filter(Objects::nonNull)
+                .map(this::getPoints)
+                .collect(Collectors.groupingBy(a -> a, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .map(entry -> entry.getKey() * entry.getValue())
+                .mapToLong(a -> a)
+                .sum();
+    }
+
+    private List<List<String>> parseInput(String filePath) {
+        return Utils.readLines(filePath).stream()
+                .map(a -> Splitter.fixedLength(1).splitToList(a))
+                .collect(Collectors.toList());
+    }
+
+    private Integer getPoints(String a) {
+        //): 3 points.
+        //]: 57 points.
+        //}: 1197 points.
+        //>: 25137 points.
+        if (a.equals(")")) {
+            return 3;
+        }
+        if (a.equals("]")) {
+            return 57;
+        }
+        if (a.equals("}")) {
+            return 1197;
+        }
+        if (a.equals(">")) {
+            return 25137;
+        }
+        return 0;
+    }
+
+    private boolean isCorrect(String open, String close) {
+        return syntaxMap.getOrDefault(open, "").equals(close);
     }
 }

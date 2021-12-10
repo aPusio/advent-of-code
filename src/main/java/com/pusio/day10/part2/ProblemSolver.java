@@ -1,34 +1,93 @@
 package com.pusio.day10.part2;
 
+import com.google.common.base.Splitter;
+import com.google.common.collect.ImmutableMap;
 import com.pusio.utils.Utils;
 
-import java.util.Collections;
-import java.util.List;
+import java.io.IOException;
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class ProblemSolver {
-    public Long solve(String filePath) {
-        List<Integer> crabs = Utils.readUsingDelimiters(filePath, ",")
-                .stream()
-                .map(Integer::valueOf)
-                .collect(Collectors.toList());
-        Integer min = Collections.min(crabs);
-        Integer max = Collections.max(crabs);
+    private Map<String, String> syntaxMap = ImmutableMap.of(
+            "(", ")",
+            "{", "}",
+            "[", "]",
+            "<", ">");
 
-        return IntStream.range(min, max)
-                .mapToLong(position -> fetFuel(crabs, position))
-                .min()
-                .orElse(0);
+    public Long solve(String filePath) throws IOException {
+        List<List<String>> splitLines = parseInput(filePath);
+        List<List<String>> result = new ArrayList<>();
+
+        for (List<String> splitLine : splitLines) {
+            Stack<String> stack = new Stack<>();
+            String firstIncorrect = "";
+            List<String> localResult = new ArrayList<>();
+            for (String singleChar : splitLine) {
+                if (syntaxMap.containsKey(singleChar)) {
+                    stack.add(singleChar);
+                } else {
+                    String pop = stack.pop();
+                    boolean correct = isCorrect(pop, singleChar);
+                    if (correct == false && firstIncorrect.equals("")) {
+                        firstIncorrect = singleChar;
+                    }
+                }
+            }
+            if (firstIncorrect.equals("")) {
+                while (!stack.isEmpty()) {
+                    localResult.add(findClosingChar(stack.pop()));
+                }
+                result.add(localResult);
+            }
+        }
+
+        List<Long> pointsResult = result.stream()
+                .filter(Objects::nonNull)
+                .map(this::calculatePoints)
+                .sorted()
+                .collect(Collectors.toList());
+
+        return pointsResult.get(pointsResult.size() / 2);
     }
 
-    private Long fetFuel(List<Integer> crabs, Integer position) {
-        Long fuel = 0L;
-        for (Integer crab : crabs) {
-            int abs = Math.abs(crab - position);
-            fuel += IntStream.range(0, abs + 1)
-                    .sum();
+    private List<List<String>> parseInput(String filePath) {
+        return Utils.readLines(filePath).stream()
+                .map(a -> Splitter.fixedLength(1).splitToList(a))
+                .collect(Collectors.toList());
+    }
+
+    private Long calculatePoints(List<String> strings) {
+        int multiply = 5;
+        long totalScore = 0;
+        for (String string : strings) {
+            totalScore *= multiply;
+            totalScore += getPoints(string);
         }
-        return fuel;
+        return totalScore;
+    }
+
+    private String findClosingChar(String pop) {
+        return syntaxMap.getOrDefault(pop, "");
+    }
+
+    private Integer getPoints(String a) {
+        if (a.equals(")")) {
+            return 1;
+        }
+        if (a.equals("]")) {
+            return 2;
+        }
+        if (a.equals("}")) {
+            return 3;
+        }
+        if (a.equals(">")) {
+            return 4;
+        }
+        return 0;
+    }
+
+    private boolean isCorrect(String open, String close) {
+        return syntaxMap.getOrDefault(open, "").equals(close);
     }
 }
