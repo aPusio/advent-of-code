@@ -1,5 +1,6 @@
 package com.pusio.utils;
 
+import com.google.common.base.CharMatcher;
 import lombok.SneakyThrows;
 import org.apache.commons.io.FileUtils;
 
@@ -32,6 +33,11 @@ public class Utils {
     public static List<String> readLines(String filePath) {
         File file = new File(filePath);
         return FileUtils.readLines(file, "UTF-8");
+    }
+
+    //this could be helpful in "broken display" task
+    public String removeOccurrences(String source, String charsToRemove) {
+        return CharMatcher.anyOf(charsToRemove).removeFrom(source);
     }
 
 }
