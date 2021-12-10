@@ -9,7 +9,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class ProblemSolver {
-    private Map<String, String> syntaxMap = ImmutableMap.of(
+    private final Map<String, String> syntaxMap = ImmutableMap.of(
             "(", ")",
             "{", "}",
             "[", "]",
