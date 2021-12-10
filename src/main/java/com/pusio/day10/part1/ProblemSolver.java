@@ -40,12 +40,7 @@ public class ProblemSolver {
 
         return result.stream()
                 .filter(Objects::nonNull)
-                .map(this::getPoints)
-                .collect(Collectors.groupingBy(a -> a, Collectors.counting()))
-                .entrySet()
-                .stream()
-                .map(entry -> entry.getKey() * entry.getValue())
-                .mapToLong(a -> a)
+                .mapToLong(this::getPoints)
                 .sum();
     }
 
