@@ -9,8 +9,10 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class ProblemSolver {
     private Long result = 0L;
@@ -61,11 +63,10 @@ public class ProblemSolver {
             visited.put(point.y, point.x, true);
             getSurroundings(point, visited)
                     .stream()
-                    .map(Point::new)
-                    .peek(this::increasePointvalue)
-                    .forEach(point1 -> doBoom(point1, visited));
-
+                    .peek(sur -> System.out.println("sur: " + sur + " " + map.get(sur.getY(), sur.getX())))
+                    .forEach(this::increasePointvalue);
             result += 1;
+            getSurroundings(point, visited).forEach(pt -> doBoom(pt, visited));
         }
     }
 
@@ -88,43 +89,27 @@ public class ProblemSolver {
         return map;
     }
 
-    private List<Table.Cell<Integer, Integer, Integer>> getSurroundings(Point startCell, Table<Integer, Integer, Boolean> visited) {
-        getPointIfNotVisited(startCell, visited);
+    private List<Point> getSurroundings(Point startCell, Table<Integer, Integer, Boolean> visited) {
+        return Stream.of(
+                        getPointIfNotVisited(visited, startCell.getY() - 1, startCell.getX()),
+                        getPointIfNotVisited(visited, startCell.getY() + 1, startCell.getX()),
+                        getPointIfNotVisited(visited, startCell.getY(), startCell.getX() - 1),
+                        getPointIfNotVisited(visited, startCell.getY(), startCell.getX() + 1),
 
-        return map.cellSet()
-                .stream()
-                .filter(cell ->
-                        visited.get(startCell.y - 1, startCell.x) != null && isOnSamePosition(cell, startCell.y - 1, startCell.x) ||
-                                visited.get(startCell.y + 1, startCell.x) != null && isOnSamePosition(cell, startCell.y + 1, startCell.x) ||
-                                visited.get(startCell.y, startCell.x - 1) != null && isOnSamePosition(cell, startCell.y, startCell.x - 1) ||
-                                visited.get(startCell.y, startCell.x + 1) != null && isOnSamePosition(cell, startCell.y, startCell.x + 1) ||
-                                visited.get(startCell.y + 1, startCell.x + 1) != null && isOnSamePosition(cell, startCell.y + 1, startCell.x + 1) ||
-                                visited.get(startCell.y - 1, startCell.x - 1) != null && isOnSamePosition(cell, startCell.y - 1, startCell.x - 1) ||
-                                visited.get(startCell.y - 1, startCell.x + 1) != null && isOnSamePosition(cell, startCell.y - 1, startCell.x + 1) ||
-                                visited.get(startCell.y + 1, startCell.x - 1) != null && isOnSamePosition(cell, startCell.y + 1, startCell.x - 1)
+                        getPointIfNotVisited(visited, startCell.getY() + 1, startCell.getX() + 1),
+                        getPointIfNotVisited(visited, startCell.getY() - 1, startCell.getX() - 1),
+                        getPointIfNotVisited(visited, startCell.getY() - 1, startCell.getX() + 1),
+                        getPointIfNotVisited(visited, startCell.getY() + 1, startCell.getX() - 1)
                 )
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
-
-
-//        return Stream.of(
-//                        map.get(cell.getRowKey() - 1, cell.getColumnKey()),
-//                        map.get(cell.getRowKey() + 1, cell.getColumnKey()),
-//                        map.get(cell.getRowKey(), cell.getColumnKey() + 1),
-//                        map.get(cell.getRowKey(), cell.getColumnKey() - 1),
-//                        map.get(cell.getRowKey()-1, cell.getColumnKey()-1),
-//                        map.get(cell.getRowKey()+1, cell.getColumnKey()+1),
-//                        map.get(cell.getRowKey()-1, cell.getColumnKey()+1),
-//                        map.get(cell.getRowKey()+1, cell.getColumnKey()-1)
-//                )
-//                .filter(Objects::nonNull);
     }
 
-    private void getPointIfNotVisited(Point startCell, Table<Integer, Integer, Boolean> visited) {
-        if (visited.get(startCell.y, startCell.x) == null || visited.get(startCell.y, startCell.x) == false) {
-            return null;
+    private Point getPointIfNotVisited(Table<Integer, Integer, Boolean> visited, Integer y, Integer x) {
+        if (visited.get(y, x) == null && map.get(y, x) != null) {
+            return new Point(y, x);
         }
-        return;
-
+        return null;
     }
 
 //    public List<Table.Cell<Integer, Integer, Integer, Boolean>> getNotVisitedSurroundings(Table.Cell<Integer, Integer, Integer> startCell){
@@ -135,17 +120,17 @@ public class ProblemSolver {
 //                .collect(Collectors.toList());
 //    }
 
-//    public boolean isOnSamePosition(Table.Cell<Integer, Integer, Integer> cell, Integer y, Integer x) {
-//        return Objects.equals(cell.getColumnKey(), y) && Objects.equals(cell.getRowKey(), x);
-//    }
+    public boolean isOnSamePosition(Table.Cell<Integer, Integer, Integer> cell, Integer y, Integer x) {
+        return cell.getColumnKey() == y && cell.getRowKey() == x;
+    }
 
     @AllArgsConstructor
     @Getter
     @ToString
     @EqualsAndHashCode
     class Point {
-        Integer x;
         Integer y;
+        Integer x;
 
         public Point(Table.Cell<Integer, Integer, Integer> cell) {
             x = cell.getColumnKey();
