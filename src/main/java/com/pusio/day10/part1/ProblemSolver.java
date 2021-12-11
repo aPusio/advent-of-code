@@ -5,7 +5,10 @@ import com.google.common.collect.ImmutableMap;
 import com.pusio.utils.Utils;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Stack;
 import java.util.stream.Collectors;
 
 public class ProblemSolver {
@@ -39,7 +42,6 @@ public class ProblemSolver {
         }
 
         return result.stream()
-                .filter(Objects::nonNull)
                 .mapToLong(this::getPoints)
                 .sum();
     }
