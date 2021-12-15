@@ -1,4 +1,4 @@
-package com.pusio.day15.day13.part2;
+package com.pusio.day15.part2;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
@@ -14,7 +14,7 @@ import java.util.PriorityQueue;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Day13Part2Solution {
+public class Day15Part2Solution {
     private Table<Integer, Integer, Integer> map = HashBasedTable.create();
     private Table<Integer, Integer, Long> shortestPaths = HashBasedTable.create();
     private Point finish;

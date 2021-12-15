@@ -1,4 +1,4 @@
-package com.pusio.day15.day13.part1;
+package com.pusio.day15.part1;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
@@ -14,12 +14,10 @@ import java.util.PriorityQueue;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Day13Part1Solution {
-    //    private List<Pair<String, Integer>> folds = new ArrayList<>();
+public class Day15Part1Solution {
     private Table<Integer, Integer, Integer> map = HashBasedTable.create();
     private Table<Integer, Integer, Boolean> visited = HashBasedTable.create();
     private Point finish;
-//    private Long result = 0L;
 
     public Long solve(String filePath) {
         List<String> lines = Utils.readLines(filePath);
@@ -28,9 +26,6 @@ public class Day13Part1Solution {
 
 
         PriorityQueue<Point> queue = new PriorityQueue<>();
-//        queue.add(new Point(1,3, 2L));
-//        queue.add(new Point(4,5, 5L));
-//        System.out.println(queue.poll());
         Point currentPoint = new Point(0, 0, 0L);
         queue.add(currentPoint);
         while (!(currentPoint.getX() == finish.getX() && currentPoint.getY() == finish.getY())) {
@@ -58,7 +53,6 @@ public class Day13Part1Solution {
     }
 
     private void parseMap(List<String> stringLines) {
-//        Table<Integer, Integer, Pair<Integer, Long>> map = HashBasedTable.create();
         finish = new Point(stringLines.size() - 1, stringLines.get(stringLines.size() - 1).length() - 1, 0L);
         for (int y = 0; y < stringLines.size(); y++) {
             String line = stringLines.get(y);
