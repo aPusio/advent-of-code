@@ -1,4 +1,4 @@
-package com.pusio.day22.day20.part1;
+package com.pusio.day22.part1;
 
 import com.google.common.collect.Range;
 import com.google.common.collect.RangeSet;
@@ -37,15 +37,9 @@ public class Day22Part1Solution {
             Integer endZ = Integer.parseInt(splitZ[1]);
             Ranges map = new Ranges();
             if (isInRange(startX, endX, startY, endY, startZ, endZ)) {
-//                if (isOn) {
                 map.getX().add(Range.closed(startX, endX));
                 map.getY().add(Range.closed(startY, endY));
                 map.getZ().add(Range.closed(startZ, endZ));
-//                } else {
-//                    map.getX().remove(Range.closed(startX, endX));
-//                    map.getY().remove(Range.closed(startY, endY));
-//                    map.getZ().remove(Range.closed(startZ, endZ));
-//                }
                 map.appendToUniqueSet(isOn);
 
                 System.out.println("sum: " + uniquePoints.size());
@@ -54,18 +48,6 @@ public class Day22Part1Solution {
         });
 
         return (long) uniquePoints.size();
-    }
-
-    private Long sumOfRange(RangeSet<Integer> rangeSet) {
-//        RangeSet<Integer> rangeSet = map.getX();
-        Long sum = 0L;
-        for (Range<Integer> rangeX : rangeSet.asRanges()) {
-            Integer lower = rangeX.lowerEndpoint();
-            Integer upper = rangeX.upperEndpoint();
-            int abs = Math.abs(upper - lower);
-            sum += abs;
-        }
-        return sum;
     }
 
     private boolean isInRange(Integer startX, Integer endX, Integer startY, Integer endY, Integer startZ, Integer endZ) {

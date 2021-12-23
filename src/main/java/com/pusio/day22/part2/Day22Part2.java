@@ -1,9 +1,9 @@
-package com.pusio.day22.day20.part2;
+package com.pusio.day22.part2;
 
 import java.io.IOException;
 
 /**
- * https://adventofcode.com/2021/day/20
+ * https://adventofcode.com/2021/day/22
  */
 public class Day22Part2 {
 

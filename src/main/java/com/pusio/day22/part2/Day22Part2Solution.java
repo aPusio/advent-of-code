@@ -1,4 +1,4 @@
-package com.pusio.day22.day20.part2;
+package com.pusio.day22.part2;
 
 import com.google.common.collect.Range;
 import com.pusio.utils.Utils;
@@ -13,8 +13,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class Day22Part2Solution {
-    //    Set<Point> uniquePoints = new TreeSet<>();
-//    private final Ranges globalMap = new Ranges();
     private List<Ranges> processedRages = new ArrayList<>();
 
 
@@ -45,10 +43,10 @@ public class Day22Part2Solution {
             if (inputRange.isOn) {
                 processedRages.add(inputRange);
             }
-            long sum = processedRages.stream().map(Ranges::permutationAmount).mapToLong(a -> a).sum();
+            long sum = processedRages.stream().map(Ranges::possiblePermutations).mapToLong(a -> a).sum();
             System.out.println("sum: " + sum);
         }
-        return processedRages.stream().map(Ranges::permutationAmount).mapToLong(a -> a).sum();
+        return processedRages.stream().map(Ranges::possiblePermutations).mapToLong(a -> a).sum();
     }
 
     @Getter
@@ -66,71 +64,18 @@ public class Day22Part2Solution {
                 Range<Integer> sharedX = x.intersection(processedRange.getX());
                 Range<Integer> sharedY = y.intersection(processedRange.getY());
                 Range<Integer> sharedZ = z.intersection(processedRange.getZ());
-//                if (!Objects.equals(sharedX.lowerEndpoint(), sharedX.upperEndpoint()) &&
-//                        !Objects.equals(sharedY.lowerEndpoint(), sharedY.upperEndpoint()) &&
-//                        !Objects.equals(sharedZ.lowerEndpoint(), sharedZ.upperEndpoint())) {
                 return Optional.of(new Ranges(sharedX, sharedY, sharedZ, !processedRange.getIsOn()));
-//                }
             } catch (IllegalArgumentException iae) {
                 return Optional.empty();
             }
-//            return Optional.empty();
         }
 
-//            x.lowerEndpoint(); // 10
-//            x.upperEndpoint(); // 12
-//            processedRange.getX().lowerEndpoint(); // 11
-//            processedRange.getX().upperEndpoint(); // 13
-
-        // -> 11:12
-//            return null;
-//        }
-        public Long permutationAmount() {
+        public Long possiblePermutations() {
             long value = (Long.valueOf(Math.abs(x.upperEndpoint() - x.lowerEndpoint()) + 1) *
                     Long.valueOf(Math.abs((y.upperEndpoint() - y.lowerEndpoint()) + 1)) *
                     Long.valueOf(Math.abs((z.upperEndpoint() - z.lowerEndpoint()) + 1)));
-//            System.out.println("permutation amount: " + (isOn ? value : -1 * value));
 
             return isOn ? value : -1 * value;
         }
     }
-//
-//    @Getter
-//    @ToString
-//    @AllArgsConstructor
-//    @EqualsAndHashCode
-//    private class Point implements Comparable {
-//        private final int y;
-//        private final int x;
-//        private final int z;
-//
-//        @Override
-//        public int compareTo(Object o) {
-//            Point other = (Point) o;
-//            int cmpx = NumberUtils.compare(this.getX(), other.getX());
-//            if (cmpx != 0) {
-//                return cmpx;
-//            } else {
-//                int cmpy = NumberUtils.compare(this.getY(), other.getY());
-//                if (cmpy != 0) {
-//                    return cmpy;
-//                } else {
-//                    return NumberUtils.compare(this.getZ(), other.getZ());
-//                }
-//            }
-//        }
-//    }
 }
-//        sum: 139590
-//        sum: 210918
-//        sum: 225476
-//        sum: 328328
-//        sum: 387734
-//        sum: 420416
-//        sum: 436132
-//        sum: 478727
-//        sum: 494759
-//        sum: 494804
-//        SAMPLE RESULT: 494804
-//
-//        Process finished with exit code 0

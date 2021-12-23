@@ -1,6 +1,7 @@
-package com.pusio.day21.day20.part2;
+package com.pusio.day21.part2;
 
 import com.pusio.utils.Utils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 import static java.util.stream.IntStream.range;
 import static java.util.stream.IntStream.rangeClosed;
 
-public class Day20Part2Solution {
+public class Day21Part2Solution {
     private final static int WINNING_SCORE = 21;
 
     public Long solve(String filePath) {
@@ -65,7 +66,6 @@ public class Day20Part2Solution {
                 }
             }
         }
-//        System.out.println(Math.max(totalWins[0], totalWins[1]));
 
         return p1Wins > p2Wins ? p1Wins : p2Wins;
     }
@@ -79,9 +79,8 @@ public class Day20Part2Solution {
 
     private Pair<Integer, Integer> initializeFirstUniverse(String filePath) {
         List<String> lines = Utils.readLines(filePath);
-        Integer player1Position = Integer.valueOf(String.valueOf(lines.get(0).charAt(lines.get(0).length() - 1))) - 1;
-        //TODO fix this parsing
-        Integer player2Position = 9;
+        Integer player1Position = Integer.parseInt(StringUtils.stripStart(lines.get(0), "Player 1 starting position: ")) - 1;
+        Integer player2Position = Integer.parseInt(StringUtils.stripStart(lines.get(1), "Player 1 starting position: ")) - 1;
         return Pair.of(player1Position, player2Position);
     }
 }

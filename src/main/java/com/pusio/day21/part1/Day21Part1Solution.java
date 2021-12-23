@@ -1,11 +1,11 @@
-package com.pusio.day21.day20.part1;
+package com.pusio.day21.part1;
 
 import com.pusio.utils.Utils;
 import lombok.*;
 
 import java.util.List;
 
-public class Day20Part1Solution {
+public class Day21Part1Solution {
     private Player player1 = new Player();
     private Player player2 = new Player();
     private Integer lastRolls = 0;
