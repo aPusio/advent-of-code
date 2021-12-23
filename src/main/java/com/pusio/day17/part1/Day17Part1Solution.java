@@ -27,8 +27,7 @@ public class Day17Part1Solution {
         queue.add(new Point(0, 1));
         queue.add(new Point(1, 0));
 
-        //holly shit
-        while (true) {
+        for (int ignore = 0; ignore < 10000; ignore++) {
             Point throwingScallar;
             if (betterQueue.isEmpty()) {
                 throwingScallar = queue.poll();
@@ -63,6 +62,7 @@ public class Day17Part1Solution {
                 }
             }
         }
+        return Long.valueOf(maxy);
     }
 
     private Pair<Position, Integer> throwItWith(Point throwingScalar) {

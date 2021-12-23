@@ -28,8 +28,7 @@ public class Day17Part2Solution {
         queue.add(new Point(0, 1));
         queue.add(new Point(1, 0));
 
-        //holly shit
-        while (true) {
+        for (int ignore = 0; ignore < 80000; ignore++) {
             Point throwingScallar;
 
             //ugluy optimalisation probably not needed
@@ -39,11 +38,9 @@ public class Day17Part2Solution {
             } else {
                 throwingScallar = betterQueue.poll();
             }
-//            System.out.println("scalar: " + throwingScallar);
             Pair<Position, Integer> maxYAndHitResult = throwItWith(throwingScallar);
             if (maxYAndHitResult.getLeft() == Position.INSIDE && maxYAndHitResult.getRight() > maxy) {
                 maxy = maxYAndHitResult.getRight();
-                System.out.println(maxy);
             }
             Point point1 = new Point(throwingScallar.getX() + 1, throwingScallar.getY());
             Point point2 = new Point(throwingScallar.getX(), throwingScallar.getY() + 1);
@@ -63,6 +60,7 @@ public class Day17Part2Solution {
                 putIfPossible(queue, point4);
             }
         }
+        return Long.valueOf(successful.size());
     }
 
     private void putIfPossible(Queue<Point> betterQueue, Point point) {
@@ -100,14 +98,8 @@ public class Day17Part2Solution {
         rectStart = new Point(Integer.valueOf(strings[2]), Integer.valueOf(strings[13]) * -1);
         rectEnd = new Point(Integer.valueOf(strings[4]), Integer.valueOf(strings[10]) * -1);
 
-
         System.out.println("start: " + rectStart);
         System.out.println("end: " + rectEnd);
-
-//        System.out.println(checkPosition(new Point(1,2)));
-//        System.out.println(checkPosition(new Point(22, -6)));
-//        System.out.println(checkPosition(new Point(33, -8)));
-//        System.out.println(checkPosition(new Point(25, -12)));
     }
 
     public Position checkPosition(Point point) {
